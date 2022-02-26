@@ -1,4 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm test
+# with local npm installation
+# npm test
+
+# with docker development environment
+docker exec -i ng-container sh -c "cd demo-app && npm test"
