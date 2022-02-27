@@ -5,4 +5,4 @@
 # npm test
 
 # with docker development environment
-docker exec -i ng-container sh -c "cd demo-app && npm test"
+docker exec -i ng-container sh -c "cd angular-demo-app && npm test"

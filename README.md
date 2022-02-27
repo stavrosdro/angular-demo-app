@@ -1,8 +1,8 @@
 # AngularDemoApp
 
-In this article we will create a new Angular project and we will configure eslint, prettier and husky. Linters and git hooks are necessary fot both personal and company projects. I will use a fresh VSCode installation without a ton of extensions (only prettier is actually needed).
+In this article we will create a new Angular project and we will configure eslint, prettier and husky. Linters and git hooks are necessary for both personal and company projects. I will use a fresh VSCode installation without a ton of extensions (only prettier is actually needed).
 
-Most of users have a local installation of Node.js in a Windows machine, so I will follow the exact same approach, but as a Docker enthousiast I will provide the equivalent commands. If you use a [docker development environment](https://medium.com/@stavrosdro/docker-development-environment-angular-full-guide-a38ee34fb651), as I do, you will have the same results.
+Most of users have a local installation of Node.js in a Windows machine, so I will follow the exact same approach, but as a Docker enthusiast I will provide the equivalent commands. If you use a [docker development environment](https://medium.com/@stavrosdro/docker-development-environment-angular-full-guide-a38ee34fb651), as I do, you will have the same results.
 
 After the following steps we will be ready to:
 
@@ -14,7 +14,7 @@ After the following steps we will be ready to:
 
 - [x] Enjoy a consistent codebase and reduce diffs & merging conflicts.
 
-*The purpose of this article is to make easy for the team to clone a project and start work on it, without spending time to configure their local settings. The only required extension is Prettier.*
+*The purpose of this article is to make it easy for the team to clone a project and start working on it, without spending time to configure their local settings. The only required extension is Prettier.*
 
 ## Create a new project & install dependencies
 ```
@@ -165,7 +165,7 @@ Type `CTRL+SHIFT+P`, search for `workspace settings (JSON)` and use the followin
 }
 ```
 
-Now we can run `npm run format` to format your entire workspace. From now on every time you save a file it will be ayto formatted. Also we can run `npm run lint` to check our code for linting errors.
+Now we can run `npm run format` to format your entire workspace. From now on every time you save a file it will be auto formatted. Also we can run `npm run lint` to check our code for linting errors.
 ## Install Husky & add pre-push git hook
 
 [Husky](https://typicode.github.io/husky/#/) is a great tool for using Git hooks. I recommend to follow the automatic installation and run `npx husky-init && npm install`. This will also create a pre-commit hook. You can create a pre-push hook by running `npx husky add .husky/pre-push "npm test"`
@@ -195,7 +195,7 @@ npm test
 - To save a file without formatting type `CTRL+SHIFT+P` and search for *save file without formatting*.
 - You can bypass the git hooks by using the `--no-verify`option.
 
-## Walkthrough for Docker Enthousiasts
+## Walkthrough for Docker Enthusiasts
 
 For the Docker fellowship I started with this Dockerfile
 
@@ -221,7 +221,7 @@ Build the docker image with `docker build -t ng-image .` and create your contain
 
 You have to follow the above steps in general. I will spot the differences below:
 
-Create application: `ng new demo-app --skip-git`
+Create application: `ng new angular-demo-app --skip-git`
 
 Update the scripts in the package.json
 
@@ -233,7 +233,7 @@ Update the scripts in the package.json
 
 `"format": "npx prettier 'src/**/*.{js,jsx,ts,tsx,html,css,scss}' --write"`
 
-In order to run the tests you have to make a couple of chagnes into the `karma.conf.js` file (I added the 4 commented lines).
+In order to run the tests you have to make a couple of changes into the `karma.conf.js` file (I added the 4 commented lines).
 
 ```
 const process = require('process'); // take the process
@@ -259,7 +259,7 @@ module.exports = function (config) {
       suppressAll: true
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/demo-app'),
+      dir: require('path').join(__dirname, './coverage/angular-demo-app'),
       subdir: '.',
       reporters: [
         { type: 'html' },
@@ -287,10 +287,10 @@ Now you have the exact same configuration. The last change is to modify the hook
 
 Open the `pre-commit` and `pre-push` files.
 
-Replace: `npm run lint` with `docker exec -i ng-container sh -c "cd demo-app && npm run lint"`
+Replace: `npm run lint` with `docker exec -i ng-container sh -c "cd angular-demo-app && npm run lint"`
 
-Replace: `npm test` with `docker exec -i ng-container sh -c "cd demo-app && npm test"`
+Replace: `npm test` with `docker exec -i ng-container sh -c "cd angular-demo-app && npm test"`
 
-Now everything is ready! You can run the tests locally with `docker exec -i ng-container sh -c "cd demo-app && npm test"`. Also with the above modifications in husky hooks you are to commit and push code as before.
+Now everything is ready! You can run the tests locally with `docker exec -i ng-container sh -c "cd angular-demo-app && npm test"`. Also with the above modifications in husky hooks you are able to commit and push code as before.
 
 Enjoy!!!
